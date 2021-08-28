@@ -9,20 +9,30 @@
             <h1 class="article-header">
                 Check available police forces within UK:
             </h1>
-            <ul>
-                <li v-for="force of forces" :key="force.id">{{force.name}}</li>
-            </ul>
+            <div class="article">
+                <ul>
+                    <li class="header-list">List of police forces:</li>
+                    <li v-for="force in forces" :key="force.id"  @click="showDetails(force.id); active = force.id" :class="{active:force.id == active}">
+                        {{force.name}}   
+                    </li>
+                </ul>
+                <p class="details">{{details}}</p>
+            </div>
+            
         </div>
     </div>
 </template>
 
 <script>
-import axios from 'axios';
+import axios from 'axios'
 
 export default {
     data(){
         return {
-            forces: []
+            forces: [],
+            details:  "Please select one of the option",
+            active: undefined,
+            activeClass: 'active',
         }
     },
     async created(){
@@ -32,23 +42,70 @@ export default {
         } catch (error) {
             console.log(error);
         }
-    }
+    },
+    methods: {
+        async showDetails(id){
+            var desc;
+            try {
+                const res = await axios.get(`https://data.police.uk/api/forces/${id}`);
+                if(!res.data.description == ""){
+                    desc = res.data.description.replace(/(<([^>]+)>)/gi, "");
+                    this.details = desc;
+                }else{
+                    this.details = "There are no future details about this forces"
+                }
+            } catch (error) {
+                console.log(error);
+            }
+        }
+    },
 }
 </script>
 
 <style scoped lang="scss">
-    ul {
+    .article {
+        display: flex;
+        flex-direction: row;
+        align-content: center;
+        justify-content: center;
         margin-top: 20px;
-        list-style: none;
 
-        li {
-            margin: 5px;
-            font-size: 20px;
-            cursor: pointer;
+        ul {
+            width: 40%;
+            margin-top: 20px;
+            list-style: none;
 
-            &:hover {
-                color: red;
+            li {
+                margin: 5px;
+                font-size: 20px;
+                cursor: pointer;
+
+                &:hover {
+                    color: red;
+                }
+
+                &.active {
+                    color: red;
+                }
+            }
+
+            .header-list{
+                font-size: 24px;
+                margin-bottom: 10px;
+                font-weight: 700;
             }
         }
+
+        .details {
+            display: flex;
+            flex-direction: column;
+            align-content: center;
+            justify-content: center;
+            width: 55%;
+            border: 1px solid black;
+            font-size: 24px;
+            padding: 10px;
+        }
     }
+    
 </style>

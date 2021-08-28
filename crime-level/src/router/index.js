@@ -11,7 +11,7 @@ const routes = [
         component: News
     },
     {
-        path: '/home',
+        path: '/',
         name: 'Home',
         component: Home
     },
@@ -24,7 +24,7 @@ const routes = [
         path: '/map',
         name: 'Map',
         component: Map
-    },
+    }
 ]
 
 const router = createRouter({
