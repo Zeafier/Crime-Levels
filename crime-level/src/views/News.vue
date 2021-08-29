@@ -1,7 +1,11 @@
 <template>
     <div class="wrapper">
         <div class="container">
-            <h1 class="article-header">Crimes comitted within 2021-07</h1>
+            <h1 class="article-header">Crimes comitted within {{date}}. Please select date for other data</h1>
+            <datepicker
+                v-model="picked"
+                @click="selectedDate"
+            />
         </div>
         <div class="grid-box">
             <div class="grid-item" v-for="city in cities" :key="city.id">
@@ -13,10 +17,12 @@
 
 <script>
 import NewsBox from '../components/NewsBox.vue'
+import datepicker from 'vue3-datepicker'
 
 export default {
     components: {
-        NewsBox
+        NewsBox,
+        datepicker
     },
     data(){
         return {
@@ -32,9 +38,28 @@ export default {
                 {id: 9, city: "Bristol", lat:"51.454514", lng:"-2.587910"},
                 {id: 10, city: "Edinburgh", lat: "55.953251", lng: "-3.188267"}
             ],
-            date: "2021-07"
+            date: "2021-07",
+            value: '',
+            picked: new Date()
         }
-    }
+    },
+    created(){
+
+    },
+    methods: {
+        selectedDate(){
+            var date = new Date();
+            date.setHours(0,0,0,0);
+
+            if(this.picked == date){
+                this.picked = new Date();
+            }else if(this.picked > date){
+                alert('This date cannot be selected');
+                this.picked = new Date();
+            }
+
+        }
+    },
 }
 </script>
 

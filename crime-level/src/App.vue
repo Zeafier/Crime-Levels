@@ -35,7 +35,7 @@ export default {
 .container {
   width: 90%;
   margin: 30px auto;
-  overflow: auto;
+  overflow:hidden ;
   min-height: 100px;
   padding: 30px;
   box-shadow: 0 0 10px black;
