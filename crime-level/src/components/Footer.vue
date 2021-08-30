@@ -3,7 +3,6 @@
         <div class="footer-display">
             <div class="navigation-links">
                 <router-link class="footer-nav" active-class="active" to="/">Home</router-link>
-                <router-link class="footer-nav" active-class="active" to="/news">News</router-link>
                 <router-link class="footer-nav" active-class="active" to="/crimes">Crimes</router-link>
                 <router-link class="footer-nav" active-class="active" to="map">Map</router-link>
             </div>

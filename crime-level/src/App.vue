@@ -35,8 +35,9 @@ export default {
 .container {
   width: 90%;
   margin: 30px auto;
-  overflow:hidden ;
+  overflow: auto;
   min-height: 100px;
+  height: fit-content;
   padding: 30px;
   box-shadow: 0 0 10px black;
 }
@@ -48,7 +49,7 @@ export default {
 }
 
 @media only screen and (max-width: 800px){
-  .container {
+  .container{
     width: 100%;
     padding: 0;
   }

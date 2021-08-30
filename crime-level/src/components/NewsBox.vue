@@ -1,9 +1,10 @@
 <template>
     <div class="news-box">
         <h1 class="title-news">{{city.city}}</h1>
-        <h2>Committed crimes</h2>
-        <div v-for="crime in crimes" :key="crime.id">
-            - {{crime.category}}
+        <h2>Crimes:</h2>
+        <div v-for="result in filteredArray" :key="result.category">
+            <p v-if="result.category == 'No crimes detected'">{{result.category}}</p>
+            <p v-else>- {{result.count}}x {{result.category}}</p>
         </div>
     </div>
 </template>
@@ -12,27 +13,41 @@
 import axios from 'axios'
 
 export default {
-    props: {
-        city: Object,
-        date: String
-    },
+    props: ['date', 'city'],
     data(){
         return{
             crimes: [],
             lat: this.city.lat,
             lng: this.city.lng,
-            selectedDate: this.date,
         }
-    }, 
-    async created(){
-        try {
-            const res = await axios.get(`https://data.police.uk/api/crimes-at-location?date=${this.selectedDate}&lat=${this.lat}&lng=${this.lng}`);
-            this.crimes = res.data;
-            if(res.data == ""){
-                this.crimes.push({id: 1, category: "No crimes detected"});
+    },
+    watch: {
+        date: {
+            handler: async function (date) {
+                try {
+                    const res = await axios.get(`https://data.police.uk/api/crimes-at-location?date=${date}&lat=${this.lat}&lng=${this.lng}`);
+                    this.crimes = res.data;
+                    if(res.data == ""){
+                        this.crimes.push({id: 1, category: "No crimes detected"});
+                    }
+                } catch (error) {
+                    console.log(error);
+                }
+            },
+            immediate: true
+        }
+    },
+    computed: {
+        filteredArray() {
+        var newArray = {}
+        for (let i in this.crimes) {
+            let key = this.crimes[i].category
+            newArray[key] = {
+                    category: key,
+                    count: newArray[key] && newArray[key].count ? newArray[key].count + 1 : 1
+                }
             }
-        } catch (error) {
-            console.log(error);
+            return Object.values(newArray)
         }
     }
 }

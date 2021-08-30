@@ -1,7 +1,6 @@
 <template>
   <header>
     <router-link class="nav" active-class="active" to="/">Home</router-link>
-    <router-link class="nav" active-class="active" to="/news">News</router-link>
     <router-link class="nav" active-class="active" to="/crimes">Crimes</router-link>
     <router-link class="nav" active-class="active" to="map">Map</router-link>
   </header>
