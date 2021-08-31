@@ -4,7 +4,7 @@
             <div class="navigation-links">
                 <router-link class="footer-nav" active-class="active" to="/">Home</router-link>
                 <router-link class="footer-nav" active-class="active" to="/crimes">Crimes</router-link>
-                <router-link class="footer-nav" active-class="active" to="map">Map</router-link>
+                <router-link class="footer-nav" active-class="active" to="/about">About</router-link>
             </div>
             <div class="footer-info">
                 <p>

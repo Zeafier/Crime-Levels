@@ -18,29 +18,46 @@ export default defineComponent({
     },
     watch: {
         date: {
-            handler: async function (date) {
-                try {
-                    const res = await axios.get(`https://data.police.uk/api/crimes-at-location?date=${date}&lat=${this.lat}&lng=${this.lng}`);
-                    this.crimes = res.data;
-                    if(res.data == ""){
-                        this.crimes.push({id: 1, category: "No crimes detected"});
-                    }
-                } catch (error) {
-                    console.log(error);
-                }
-                const {labels, data} = this.filteredArray;
+            handler: function (date) {
+                var tempdate = '';
+                var isDateSet = false;
 
-                // Overwriting base render method with actual data.
-                this.renderChart({
-                    labels: labels,
-                    datasets: [
-                        {
-                            label: "Crimes",
-                            backgroundColor: '#f87979',
-                            data: data
+                if(date == ''){
+                    tempdate = this.todayDate();
+                    isDateSet == true;
+                }else{
+                    tempdate = date;
+                    isDateSet = true;
+                }
+
+                if(isDateSet){
+                    axios.get(`https://data.police.uk/api/crimes-at-location?date=${tempdate}&lat=${this.lat}&lng=${this.lng}`)
+                    .then(res => {
+                        this.crimes = res.data;
+                        if(res.data == ""){
+                            this.crimes.push({id: 1, category: "No crimes detected"});
                         }
-                    ]
-                });
+                    })
+                    .then(() => {
+                        const {labels, data} = this.filteredArray;
+                        this.label = labels;
+                        this.data = data;
+                    })
+                    .then(() => {
+                        // Overwriting base render method with actual data.
+                        this.renderChart({
+                            labels: this.label,
+                            datasets: [
+                                {
+                                    label: "Crimes",
+                                    backgroundColor: '#f87979',
+                                    data: this.data
+                                }
+                            ]
+                        });
+                    })
+                    .catch(err => console.log(err))
+                }
             },
             immediate: true
         }
@@ -69,6 +86,20 @@ export default defineComponent({
                 labels,
                 data
             };
+        }
+    },
+    methods:{
+        todayDate() {
+            var today = new Date();
+            //year and month
+            var y = today.getFullYear();
+            var m = today.getMonth(0, 2) + 1;
+            //check if month is October and set today's month
+            if(m > 9){
+                return `${y}-${m}`;
+            }else{
+                return `${y}-0${m}`;
+            }
         }
     }
 })

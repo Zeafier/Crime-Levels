@@ -23,7 +23,7 @@
             <div class="grid-box">
                 <div class="grid-item" v-for="city in cities" :key="city.id">
                     <h1>{{city.city}}</h1>
-                    <Chart :city="city" :date="date" />
+                    <Chart :city="city" :date="date" v-if="isDateSet" />
                 </div>
             </div>
         </div>
@@ -54,7 +54,7 @@ export default {
                 {id: 10, city: "Edinburgh", lat: "55.953251", lng: "-3.188267"}
             ],
             date: "",
-            today: new Date()
+            today: new Date(),
         }
     },
     methods: {
@@ -97,6 +97,15 @@ export default {
         $.get(url, function(response) {
             vm.date = response;
         });
+    },
+    computed: {
+        isDateSet() {
+            if(this.date = ''){
+                return false;
+            }else{
+                return true;
+            }
+        }
     }
 }
 </script>

@@ -18,6 +18,8 @@ export default {
 </script>
 
 <style lang="scss">
+@import './style/variables.scss';
+
 
 * {
   margin: 0;
@@ -29,7 +31,7 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
+  background-color: $gray;
 }
 
 .container {
@@ -39,6 +41,8 @@ export default {
   min-height: 100px;
   height: fit-content;
   padding: 30px;
+  background-color: $darkgreen;
+  color: $lightred;
   box-shadow: 0 0 10px black;
 }
 
