@@ -25,7 +25,8 @@ export default {
         date: {
             handler: async function (date) {
                 try {
-                    const res = await axios.get(`https://data.police.uk/api/crimes-at-location?date=${date}&lat=${this.lat}&lng=${this.lng}`);
+                    const headers = { "Content-Type": "application/json" };
+                    const res = await axios.get(`https://data.police.uk/api/crimes-at-location?date=${date}&lat=${this.lat}&lng=${this.lng}`, headers);
                     this.crimes = res.data;
                     if(res.data == ""){
                         this.crimes.push({id: 1, category: "No crimes detected"});

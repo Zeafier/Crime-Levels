@@ -1,9 +1,12 @@
 <template>
   <header>
     <div class="logo" @click="loadHome"><p>C</p></div>
-    <router-link class="nav" active-class="active" to="/">Home</router-link>
-    <router-link class="nav" active-class="active" to="/crimes">Crimes</router-link>
-    <router-link class="nav" active-class="active" to="/about">About</router-link>
+    <!-- Navigation links -->
+    <nav>
+      <router-link class="nav" active-class="active" to="/">Home</router-link>
+      <router-link class="nav" active-class="active" to="/crimes">Crimes</router-link>
+      <router-link class="nav" active-class="active" to="/about">About</router-link>
+    </nav>
   </header>
 </template>
 
@@ -11,6 +14,7 @@
 export default {
   name: 'NavBar',
   methods: {
+    //Load home page when logo clicked
     loadHome() {
       this.$router.push('/');
     }
@@ -22,6 +26,7 @@ export default {
 <style scoped lang="scss">
 @import '../style/variables.scss';
 
+//header
 header {
   position: relative;
   width: 100%;
@@ -53,39 +58,68 @@ header {
     }
   }
 
-  //nav bar
-  .nav {
-    text-decoration: none;
-    color: black;
-    font-size: 25px;
-    padding: 15px;
-    margin-left: 30px;
-    transition: 0.7s;
-    border-radius: 50%;
-    color: $darkgreen;
-    font-weight: 400;
-
-    &:hover {
-      background-color: $darkgreen;
-      color: $gray;
-    }
-
-    &.active {
-      background: $darkgreen;
-      color: $gray;
-      font-weight: 700;
+  //nav bar 
+  nav {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    width: 70%;
+    //navigation links
+    .nav {
+      text-decoration: none;
+      color: black;
+      text-transform: uppercase;
+      font-size: 25px;
+      padding: 15px;
+      margin-left: 30px;
+      transition: 0.7s;
+      border-radius: 50%;
+      color: $darkgreen;
+      font-weight: 400;
+      //hover
+      &:hover {
+        background-color: $darkgreen;
+        color: $gray;
+      }
+      //active class
+      &.active {
+        background: $darkgreen;
+        color: $gray;
+        font-weight: 700;
+      }
     }
   }
 }
-
+// mobile version
 @media only screen and (max-width: 800px){
+  //header
   header {
-    height: 80px;
+    height: 120px;
+    flex-direction: column;
+    //logo
+    .logo {
+      margin-top: 10px;
+      width: 70px;
+      height: 40px;
+      //paragraph
+      p{
+        font-size: 20px;
+      }
+    }
+    //navigation
+    nav{
+      widows: 100%;
 
-    .nav {
-      font-size: 18px;
-      padding: 5px;
-      margin-left: 0
+      .nav {
+        font-size: 18px;
+        padding: 8px;
+        margin-left: 0;
+
+        &.active {
+          font-weight: 500;
+        }
+      }
     }
   }
 }
