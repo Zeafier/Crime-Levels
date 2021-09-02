@@ -56,6 +56,7 @@ export default {
 .wrapper {
   overflow: hidden;
   width: 100%;
+  min-height: 70vh;
   height: fit-content;
 }
 
@@ -70,6 +71,10 @@ export default {
     .header-default {
       font-size: 25px;
     }
+  }
+  //wrapper
+  .wrapper{
+    min-height: 65vh;
   }
 }
 

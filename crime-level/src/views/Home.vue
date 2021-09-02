@@ -89,11 +89,12 @@ export default {
         display: flex;
         flex-direction: row;
         align-content: center;
-        justify-content: center;
+        justify-content:flex-start;
         margin-top: 20px;
 
         // unordered lists
         ul {
+            position: relative;
             width: 40%;
             margin-top: 20px;
             list-style: none;
@@ -129,12 +130,13 @@ export default {
 
         //details information
         .details {
-            display: flex;
-            flex-direction: column;
-            align-content: center;
-            justify-content: center;
-            width: 55%;
+            right: 5%;
+            position: fixed;
+            margin: 20px 0;
+            width: 50%;
             border-left: 2px inset $gray;
+            border: 2px solid black;
+            box-shadow: 1px 1px 10px $gray;
             font-size: 24px;
             padding: 10px;
         }
@@ -151,6 +153,7 @@ export default {
         flex-direction: column;
 
         ul {
+            order: 2;
             margin-top: 10px;
             width: 100%;
 
@@ -165,10 +168,12 @@ export default {
         }
 
         .details {
+            order: 1;
+            right: 0;
+            position: relative;
+            display: block;
             padding: 10px 0;
             width: 100%;
-            border-left: none;
-            border-top: 2px inset $gray;
             font-size: 18px;
             word-spacing: 2px;
             line-height: 25px;

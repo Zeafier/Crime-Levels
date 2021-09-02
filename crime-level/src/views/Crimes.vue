@@ -31,7 +31,7 @@
             <div class="grid-box">
                 <!-- Grid items -->
                 <div class="grid-item" v-for="city in cities" :key="city.id">
-                    <h1>{{city.city}} on date {{date}}</h1>
+                    <h1 class="grid-title">{{city.city}} on date {{date}}</h1>
                     <!-- charts -->
                     <Chart :city="city" :date="date" v-if="isDateSet" />
                 </div>
@@ -127,6 +127,16 @@ export default {
 <style scoped lang="scss">
 @import '../style/variables.scss';
 
+    input[type="month"]{
+        padding: 10px;
+        font-size: 20px;
+        border-radius: 50%;
+        background-color: $lightred;
+        color: $darkgreen;
+        font-weight: 700;
+        text-align: center;
+    }
+
     .grid-box {
         margin: 30px auto;
         width: 100%;
@@ -143,6 +153,10 @@ export default {
             width: 90%;
             align-self: center;
             justify-self: center;
+            
+            .grid-title {
+                margin: 10px 0;
+            }
         }
     }
 
@@ -156,6 +170,16 @@ export default {
         .grid-box{
             margin: 10px auto;
             grid-template-columns: 95%;
+        }
+
+        .grid-title {
+            font-size: 20px;
+        }
+
+        input[type="month"]{
+            padding: 5px;
+            font-size: 16px;
+            font-weight: 600;
         }
     }
 </style>
