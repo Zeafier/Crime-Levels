@@ -1,5 +1,5 @@
 # Crime Levels
- Website created for the purpose of interview
+ Website created for training purposes
 
 # How to run?
 1. Clone repository and launch it in VS Code.
